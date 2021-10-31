@@ -1,0 +1,45 @@
+.wrapper {
+  display: flex;
+}
+.poster {
+  max-width: 320px;
+  height: 500px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.description {
+  margin-left: 20px;
+}
+.movieTitle {
+  margin-bottom: 55px;
+  text-align: center;
+}
+
+.movieScore {
+  margin-bottom: 10px;
+}
+.movieOverview,
+.movieGenres {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px;
+  font-weight: 500;
+  color: #2a363b;
+  font-size: 18px;
+}
+
+.activeLink {
+  composes: link;
+  color: #2196f3;
+}
+.linkNav {
+  min-height: 80px;
+  border-top: 1px solid #2a363b;
+}
