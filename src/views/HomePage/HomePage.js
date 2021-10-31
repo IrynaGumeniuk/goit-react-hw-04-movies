@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import * as apiService from '../../services/films-api';
 import styles from './HomePage.module.css';
-import Loader from '../../components/Loader/Loader';
-import ErrorView from '../../components/ErrorView/ErrorView';
+import Loader from '../../Components/Loader/Loader';
+import ErrorView from '../../Components/ErrorView/ErrorView';
 
 const Status = {
   IDLE: 'idle',
@@ -49,7 +49,7 @@ export default function HomePage() {
                   src={
                     movie.poster_path
                       ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                      : alert ("Not found")
+                      : alert("Not found")
                   }
                   alt={movie.title}
                 />

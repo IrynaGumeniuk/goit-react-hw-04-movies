@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
-import Loader from './components/Loader/Loader';
+import Loader from './Components/Loader/Loader';
 
 import { Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import AppBar from './components/AppBar/AppBar';
+import AppBar from './Components/AppBar/AppBar';
 
 const HomePage = lazy(() =>
   import('./views/HomePage/HomePage' /* webpackChunkName: "home-page" */),

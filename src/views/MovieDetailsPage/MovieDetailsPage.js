@@ -1,10 +1,10 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useParams, NavLink, useRouteMatch, Route, Switch} from 'react-router-dom';
+import { useParams, NavLink, useRouteMatch, Route, Switch } from 'react-router-dom';
 import * as apiService from '../../services/films-api';
 import styles from './MovieDetailsPage.module.css';
 
-import ErrorView from '../../components/ErrorView/ErrorView';
-import Loader from '../../components/Loader/Loader';
+import ErrorView from '../../Components/ErrorView/ErrorView';
+import Loader from '../../Components/Loader/Loader';
 
 const Cast = lazy(() =>
   import('../Cast/Cast' /* webpackChunkName: "cast-page" */),

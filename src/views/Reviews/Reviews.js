@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import styles from './Reviews.module.css';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../Components/Loader/Loader';
 import * as apiService from '../../services/films-api';
-import ErrorView from '../../components/ErrorView/ErrorView';
+import ErrorView from '../../Components/ErrorView/ErrorView';
 
 const Status = {
   IDLE: 'idle',

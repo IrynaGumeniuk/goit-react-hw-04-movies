@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import styles from '../HomePage/HomePage.module.css';
-import Searchbar from '../../components/Searchbar/Searchbar';
+import Searchbar from '../../Components/Searchbar/Searchbar';
 import * as apiService from '../../services/films-api';
-import Loader from '../../components/Loader/Loader';
-import ErrorView from '../../components/ErrorView/ErrorView';
+import Loader from '../../Components/Loader/Loader';
+import ErrorView from '../../Components/ErrorView/ErrorView';
 
 const Status = {
   IDLE: 'idle',
@@ -67,7 +67,7 @@ export default function MoviesPage() {
                   src={
                     movie.poster_path
                       ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                      : alert ("Not found")
+                      : alert("Not found")
                   }
                   alt={movie.title}
                 />

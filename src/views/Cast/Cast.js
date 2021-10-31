@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ErrorView from '../../components/ErrorView/ErrorView';
-import Loader from '../../components/Loader/Loader';
+import ErrorView from '../../Components/ErrorView/ErrorView';
+import Loader from '../../Components/Loader/Loader';
 import styles from './Cast.module.css';
 import { toast } from 'react-toastify';
 
@@ -53,7 +53,7 @@ export default function Cast() {
                 src={
                   cast.profile_path
                     ? `https://image.tmdb.org/t/p/w500/${cast.profile_path}`
-                    : alert ("Not found")
+                    : alert("Not found")
                 }
                 alt={cast.name}
               />
