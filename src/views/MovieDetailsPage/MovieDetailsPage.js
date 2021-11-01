@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, NavLink, useRouteMatch, Route, Switch } from 'react-router-dom';
+import notFoundImg from '../../img/notFound.png';
 import * as apiService from '../../services/films-api';
 import styles from './MovieDetailsPage.module.css';
 
@@ -36,7 +37,7 @@ export default function MovieDetailsPage() {
         setMovie({
           src: poster_path
             ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-            : alert("Not found"),
+            : notFoundImg,
           title: original_title,
           score: popularity.toFixed(1),
           overview,

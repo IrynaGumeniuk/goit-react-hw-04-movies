@@ -4,6 +4,7 @@ import * as apiService from '../../services/films-api';
 import styles from './HomePage.module.css';
 import Loader from '../../Components/Loader/Loader';
 import ErrorView from '../../Components/ErrorView/ErrorView';
+import notFoundImg from '../../img/notFound.png';
 
 const Status = {
   IDLE: 'idle',
@@ -49,7 +50,7 @@ export default function HomePage() {
                   src={
                     movie.poster_path
                       ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                      : alert("Not found")
+                      : notFoundImg
                   }
                   alt={movie.title}
                 />

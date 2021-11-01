@@ -3,6 +3,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import styles from '../HomePage/HomePage.module.css';
 import Searchbar from '../../Components/Searchbar/Searchbar';
 import * as apiService from '../../services/films-api';
+import notFoundImg from '../../img/notFound.png';
 import Loader from '../../Components/Loader/Loader';
 import ErrorView from '../../Components/ErrorView/ErrorView';
 
@@ -67,7 +68,7 @@ export default function MoviesPage() {
                   src={
                     movie.poster_path
                       ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                      : alert("Not found")
+                      : notFoundImg
                   }
                   alt={movie.title}
                 />

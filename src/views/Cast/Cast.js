@@ -6,6 +6,7 @@ import styles from './Cast.module.css';
 import { toast } from 'react-toastify';
 
 import * as apiService from '../../services/films-api';
+import notFoundImg from '../../img/notFound.png';
 
 const Status = {
   IDLE: 'idle',
@@ -53,7 +54,7 @@ export default function Cast() {
                 src={
                   cast.profile_path
                     ? `https://image.tmdb.org/t/p/w500/${cast.profile_path}`
-                    : alert("Not found")
+                    : notFoundImg
                 }
                 alt={cast.name}
               />
