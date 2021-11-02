@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useParams, NavLink, useRouteMatch, Route, Switch } from 'react-router-dom';
+import { useParams, useLocation, useHistory, NavLink, useRouteMatch, Route, Switch } from 'react-router-dom';
 import notFoundImg from '../../img/notFound.png';
 import * as apiService from '../../services/films-api';
 import styles from './MovieDetailsPage.module.css';
@@ -27,6 +27,8 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
+  const { location } = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -51,12 +53,28 @@ export default function MovieDetailsPage() {
       });
   }, [movieId]);
 
+  const goBackHandler = () => {
+    if (!location) {
+      history.push({ pathname: '/' });
+      return;
+    }
+    history.push(location.from);
+  };
+
   return (
     <>
       {status === Status.PENDING && <Loader />}
       {status === Status.REJECTED && <ErrorView message={error} />}
       {status === Status.RESOLVED && (
         <>
+          {movie && (
+            <button
+              className={styles.btnBack}
+              onClick={goBackHandler}
+            >
+              Go back
+            </button>
+          )}
           <div className={styles.wrapper}>
             <img className={styles.poster} src={movie.src} alt={movie.title} />
             <div className={styles.description}>

@@ -43,3 +43,11 @@
   min-height: 80px;
   border-top: 1px solid #2a363b;
 }
+
+.btnBack {
+  background-color: #f0f0f0;
+  font-variant: outlined;
+  color: #2a363b;
+  font-weight: 600;
+  margin: 15px 20px;
+}
