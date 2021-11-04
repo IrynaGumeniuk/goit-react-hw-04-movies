@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLocation } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import styles from '../HomePage/HomePage.module.css';
 import Searchbar from '../../Components/Searchbar/Searchbar';
@@ -19,6 +19,7 @@ export default function MoviesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
+  const { location } = useLocation();
 
   const { url } = useRouteMatch();
 
@@ -62,7 +63,7 @@ export default function MoviesPage() {
         <ul className={styles.movieGallery}>
           {movies.map(movie => (
             <li key={movie.id} className={styles.movieGalleryItem}>
-              <Link to={`${url}/${movie.id}`}>
+              <Link to={`${url}/${movie.id}`} from={location.from}>
                 <img
                   className={styles.movieGalleryItemImage}
                   src={
@@ -77,7 +78,8 @@ export default function MoviesPage() {
             </li>
           ))}
         </ul>
-      )}
+      )
+      }
     </>
   );
 }
