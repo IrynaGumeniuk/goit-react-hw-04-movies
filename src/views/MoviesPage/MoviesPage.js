@@ -63,7 +63,7 @@ export default function MoviesPage() {
         <ul className={styles.movieGallery}>
           {movies.map(movie => (
             <li key={movie.id} className={styles.movieGalleryItem}>
-              <Link to={`${url}/${movie.id}`} from={location.from}>
+              <Link to={{ pathname: `${url}/${movie.id}`, state: { from: location.pathName } }} >
                 <img
                   className={styles.movieGalleryItemImage}
                   src={
