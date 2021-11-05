@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory, useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
@@ -7,21 +8,21 @@ import styles from './Searchbar.module.css';
 
 export default function Searchbar({ onSubmit }) {
   const [query, setQuery] = useState('');
+  const history = useHistory();
+  const location = useLocation();
 
   const handleNameChange = e => {
     setQuery(e.currentTarget.value.toLowerCase());
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (query.trim() === '') {
-      return toast.error('Please enter some value');
+    if (query.trim() === "") {
+      return toast.error('Please enter some value')
     }
-
+    history.push({ ...location, search: `query=${query}` });
     onSubmit(query);
-
-    setQuery('');
+    setQuery("");
   };
 
   return (
@@ -44,5 +45,5 @@ export default function Searchbar({ onSubmit }) {
 }
 
 Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 };

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
 import * as apiService from '../../services/films-api';
 import styles from './HomePage.module.css';
 import Loader from '../../Components/Loader/Loader';
 import ErrorView from '../../Components/ErrorView/ErrorView';
-import notFoundImg from '../../img/notFound.png';
+import MoviesList from '../../Components/MoviesList/MoviesList'
 
 const Status = {
   IDLE: 'idle',
@@ -13,9 +12,8 @@ const Status = {
   REJECTED: 'rejected',
 };
 export default function HomePage() {
-  const { url } = useRouteMatch();
 
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
 
@@ -33,6 +31,8 @@ export default function HomePage() {
       });
   }, []);
 
+  const moviesListNotEmpty = movies.length !== 0;
+
   return (
     <>
       <h2 className={styles.title}>Trending today</h2>
@@ -41,24 +41,7 @@ export default function HomePage() {
       {status === Status.REJECTED && <ErrorView message={error.message} />}
 
       {status === Status.RESOLVED && (
-        <ul className={styles.movieGallery}>
-          {movies.map(movie => (
-            <li key={movie.id} className={styles.movieGalleryItem}>
-              <Link to={`${url}movies/${movie.id}`}>
-                <img
-                  className={styles.movieGalleryItemImage}
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                      : notFoundImg
-                  }
-                  alt={movie.title}
-                />
-                <p className={styles.movieTitle}>{movie.title}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        moviesListNotEmpty && <MoviesList movies={movies} />
       )}
     </>
   );

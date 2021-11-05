@@ -22,13 +22,14 @@ const Status = {
 };
 
 export default function MovieDetailsPage() {
+  const history = useHistory();
+  const location = useLocation();
   const { movieId } = useParams();
-  const { url, path } = useRouteMatch();
   const [movie, setMovie] = useState(null);
+  const { url } = useRouteMatch();
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
-  const { location } = useLocation();
-  const history = useHistory();
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -54,11 +55,9 @@ export default function MovieDetailsPage() {
   }, [movieId]);
 
   const goBackHandler = () => {
-    if (!location) {
-      history.push({ pathname: '/' });
-      return;
-    }
-    history.push(location.from);
+    history.push(location?.state?.from ?? "/");
+    console.log(location);
+    setQuery(query);
   };
 
   return (
@@ -93,14 +92,24 @@ export default function MovieDetailsPage() {
           </div>
           <nav className={styles.linkNav}>
             <NavLink
-              to={`${url}/cast`}
+              to={{
+                pathname: `${url}/cast`,
+                state: {
+                  from: location ?? "/movie",
+                },
+              }}
               className={styles.link}
               activeClassName={styles.activeLink}
             >
               Cast
             </NavLink>
             <NavLink
-              to={`${url}/reviews`}
+              to={{
+                pathname: `${url}/reviews`,
+                state: {
+                  from: location ?? "/movie",
+                },
+              }}
               className={styles.link}
               activeClassName={styles.activeLink}
             >
@@ -109,11 +118,11 @@ export default function MovieDetailsPage() {
           </nav>
           <Suspense fallback={<Loader />}>
             <Switch>
-              <Route path={`${path}/cast`}>
+              <Route path="/movies/:movieId/cast">
                 <Cast />
               </Route>
 
-              <Route path={`${path}/reviews`}>
+              <Route path="/movies/:movieId/reviews">
                 <Reviews />
               </Route>
             </Switch>

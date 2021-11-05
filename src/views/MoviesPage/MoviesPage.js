@@ -1,11 +1,9 @@
-import { useState, useEffect, useLocation } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import styles from '../HomePage/HomePage.module.css';
+import { useState, useEffect } from 'react';
 import Searchbar from '../../Components/Searchbar/Searchbar';
 import * as apiService from '../../services/films-api';
-import notFoundImg from '../../img/notFound.png';
 import Loader from '../../Components/Loader/Loader';
 import ErrorView from '../../Components/ErrorView/ErrorView';
+import MoviesList from '../../Components/MoviesList/MoviesList'
 
 const Status = {
   IDLE: 'idle',
@@ -15,13 +13,10 @@ const Status = {
 };
 
 export default function MoviesPage() {
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
-  const { location } = useLocation();
-
-  const { url } = useRouteMatch();
 
   useEffect(() => {
     if (!searchQuery) return;
@@ -54,30 +49,15 @@ export default function MoviesPage() {
     setStatus(Status.IDLE);
   };
 
+  const moviesListNotEmpty = movies.length !== 0;
+
   return (
     <>
       <Searchbar onSubmit={onChangeQuery} />
       {status === Status.PENDING && <Loader />}
       {status === Status.REJECTED && <ErrorView message={error} />}
       {status === Status.RESOLVED && (
-        <ul className={styles.movieGallery}>
-          {movies.map(movie => (
-            <li key={movie.id} className={styles.movieGalleryItem}>
-              <Link to={{ pathname: `${url}/${movie.id}`, state: { from: location.pathName } }} >
-                <img
-                  className={styles.movieGalleryItemImage}
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                      : notFoundImg
-                  }
-                  alt={movie.title}
-                />
-                <p className={styles.movieTitle}>{movie.title}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        moviesListNotEmpty && <MoviesList movies={movies} />
       )
       }
     </>
