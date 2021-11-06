@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useParams, useLocation, useHistory, NavLink, useRouteMatch, Route, Switch } from 'react-router-dom';
+import { useParams, useLocation, useHistory, NavLink, Route, Switch } from 'react-router-dom';
 import notFoundImg from '../../img/notFound.png';
 import * as apiService from '../../services/films-api';
 import styles from './MovieDetailsPage.module.css';
@@ -26,10 +26,8 @@ export default function MovieDetailsPage() {
   const location = useLocation();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const { url } = useRouteMatch();
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -55,9 +53,7 @@ export default function MovieDetailsPage() {
   }, [movieId]);
 
   const goBackHandler = () => {
-    history.push(location?.state?.from ?? "/");
-    console.log(location);
-    setQuery(query);
+    history.push(location.state?.from ? location.state.from : '/');
   };
 
   return (
@@ -93,9 +89,10 @@ export default function MovieDetailsPage() {
           <nav className={styles.linkNav}>
             <NavLink
               to={{
-                pathname: `${url}/cast`,
+                pathname: `/movies/${movieId}/cast`,
                 state: {
-                  from: location ?? "/movie",
+                  from: history.location.state.from,
+                  label: "back to movies from cast",
                 },
               }}
               className={styles.link}
@@ -105,9 +102,10 @@ export default function MovieDetailsPage() {
             </NavLink>
             <NavLink
               to={{
-                pathname: `${url}/reviews`,
+                pathname: `/movies/${movieId}/reviews`,
                 state: {
-                  from: location ?? "/movie",
+                  from: history.location.state.from,
+                  label: "back to movies from cast",
                 },
               }}
               className={styles.link}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLocation } from 'react';
 import Searchbar from '../../Components/Searchbar/Searchbar';
 import * as apiService from '../../services/films-api';
 import Loader from '../../Components/Loader/Loader';
@@ -17,6 +17,8 @@ export default function MoviesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
+  const [value, setValue] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     if (!searchQuery) return;
@@ -39,6 +41,20 @@ export default function MoviesPage() {
         setStatus(Status.REJECTED);
       });
   }, [searchQuery]);
+
+  useEffect(() => {
+    const searchQueryValue = new URLSearchParams(location.search).get(
+      'searchQuery',
+    );
+    setValue(searchQueryValue);
+  }, [location.search]);
+
+  useEffect(() => {
+    if (value === '') return;
+    apiService.getFilmsBySearchQuery(value).then(movies => {
+      setMovies(movies);
+    });
+  }, [value]);
 
   const onChangeQuery = newQuery => {
     if (searchQuery === newQuery) {

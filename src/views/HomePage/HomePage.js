@@ -25,7 +25,7 @@ export default function HomePage() {
         setMovies(results);
         setStatus(Status.RESOLVED);
       })
-      .catch(error => {
+      .catch(err => {
         setError('Something went wrong. Try again.');
         setStatus(Status.REJECTED);
       });
